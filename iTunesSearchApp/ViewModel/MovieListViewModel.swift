@@ -1,24 +1,23 @@
 //
-//  AlbumListViewModel.swift
+//  MovieListViewModel.swift
 //  iTunesSearchApp
 //
-//  Created by Songyee Park on 2022/08/06.
+//  Created by Songyee Park on 2022/08/07.
 //
 
 import Foundation
 import Combine
 
-class AlbumListViewModel: ObservableObject {
+class MovieListViewModel: ObservableObject {
     
     @Published var searchTerm: String = ""
-    @Published var albums: [Album] = [Album]()
+    @Published var movies: [Movie] = [Movie]()
     @Published var state: FetchState = .idle
     
-    let limit: Int = 20
-    var page: Int = 0
-    let service = APIService()
+    private let service = APIService()
     
     var subscriptions = Set<AnyCancellable>()
+    let defaultLimits: Int = 50
     
     init() {
         $searchTerm
@@ -26,17 +25,12 @@ class AlbumListViewModel: ObservableObject {
             .debounce(for: .seconds(0.5), scheduler: RunLoop.main)
             .sink { [weak self] term in
                 self?.state = .idle
-                self?.page = 0
-                self?.albums = []
-                self?.fetchAlbums(for: term)
+                self?.movies = []
+                self?.fetchMovies(for: term)
         }.store(in: &subscriptions)
     }
     
-    func loadMore() {
-        fetchAlbums(for: searchTerm)
-    }
-    
-    func fetchAlbums(for searchTerm: String) {
+    func fetchMovies(for searchTerm: String) {
         guard !searchTerm.isEmpty else {
             return
         }
@@ -45,21 +39,25 @@ class AlbumListViewModel: ObservableObject {
         }
         state = .isLoading
         
-        service.fetchAlbums(searchTerm: searchTerm, page: page, limit: limit) { [weak self] result in
+        service.fetchMovies(searchTerm: searchTerm) { [weak self] result in
             DispatchQueue.main.async {
                 switch result {
                 case .success(let result):
-                    for album in result.results {
-                        self?.albums.append(album)
+                    self?.movies = result.results
+                    if result.resultCount == self?.defaultLimits {
+                        self?.state = .idle
+                    } else {
+                        self?.state = .loadedAll
                     }
-                    self?.page += 1
-                    self?.state = (result.results.count == self?.limit) ? .idle : .loadedAll
                 case .failure(let error):
+                    print(error.description)
                     self?.state = .error("Could not load: \(error.localizedDescription)")
                 }
             }
         }
     }
-
+    
+    func loadMore() {
+        fetchMovies(for: searchTerm)
+    }
 }
-

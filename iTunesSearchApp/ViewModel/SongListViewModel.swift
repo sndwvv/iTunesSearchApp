@@ -1,42 +1,26 @@
 //
-//  AlbumListViewModel.swift
+//  SongListViewModel.swift
 //  iTunesSearchApp
 //
-//  Created by Songyee Park on 2022/08/06.
+//  Created by Songyee Park on 2022/08/07.
 //
 
 import Foundation
 import Combine
 
-class AlbumListViewModel: ObservableObject {
+class SongListViewModel: ObservableObject {
     
     @Published var searchTerm: String = ""
-    @Published var albums: [Album] = [Album]()
+    @Published var songs: [Song] = [Song]()
     @Published var state: FetchState = .idle
     
     let limit: Int = 20
     var page: Int = 0
-    let service = APIService()
+    private let service = APIService()
     
     var subscriptions = Set<AnyCancellable>()
     
-    init() {
-        $searchTerm
-            .dropFirst()
-            .debounce(for: .seconds(0.5), scheduler: RunLoop.main)
-            .sink { [weak self] term in
-                self?.state = .idle
-                self?.page = 0
-                self?.albums = []
-                self?.fetchAlbums(for: term)
-        }.store(in: &subscriptions)
-    }
-    
-    func loadMore() {
-        fetchAlbums(for: searchTerm)
-    }
-    
-    func fetchAlbums(for searchTerm: String) {
+    func fetchSongs(for searchTerm: String) {
         guard !searchTerm.isEmpty else {
             return
         }
@@ -45,12 +29,12 @@ class AlbumListViewModel: ObservableObject {
         }
         state = .isLoading
         
-        service.fetchAlbums(searchTerm: searchTerm, page: page, limit: limit) { [weak self] result in
+        service.fetchSongs(searchTerm: searchTerm, page: page, limit: limit) { [weak self] result in
             DispatchQueue.main.async {
                 switch result {
                 case .success(let result):
-                    for album in result.results {
-                        self?.albums.append(album)
+                    for song in result.results {
+                        self?.songs.append(song)
                     }
                     self?.page += 1
                     self?.state = (result.results.count == self?.limit) ? .idle : .loadedAll
@@ -60,6 +44,4 @@ class AlbumListViewModel: ObservableObject {
             }
         }
     }
-
 }
-
