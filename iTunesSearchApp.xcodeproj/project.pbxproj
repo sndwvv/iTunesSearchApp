@@ -14,6 +14,11 @@
 		1ED4BC32289EA12800689911 /* iTunesSearchAppTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1ED4BC31289EA12800689911 /* iTunesSearchAppTests.swift */; };
 		1ED4BC3C289EA12800689911 /* iTunesSearchAppUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1ED4BC3B289EA12800689911 /* iTunesSearchAppUITests.swift */; };
 		1ED4BC3E289EA12800689911 /* iTunesSearchAppUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1ED4BC3D289EA12800689911 /* iTunesSearchAppUITestsLaunchTests.swift */; };
+		1ED4BC4E289EA37000689911 /* Album.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1ED4BC4D289EA37000689911 /* Album.swift */; };
+		1ED4BC50289EA3FD00689911 /* AlbumListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1ED4BC4F289EA3FD00689911 /* AlbumListViewModel.swift */; };
+		1ED4BC52289EA50D00689911 /* Song.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1ED4BC51289EA50D00689911 /* Song.swift */; };
+		1ED4BC54289EA51300689911 /* Movie.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1ED4BC53289EA51300689911 /* Movie.swift */; };
+		1ED4BC56289EA74C00689911 /* AlbumListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1ED4BC55289EA74C00689911 /* AlbumListView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -44,6 +49,11 @@
 		1ED4BC37289EA12800689911 /* iTunesSearchAppUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = iTunesSearchAppUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		1ED4BC3B289EA12800689911 /* iTunesSearchAppUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = iTunesSearchAppUITests.swift; sourceTree = "<group>"; };
 		1ED4BC3D289EA12800689911 /* iTunesSearchAppUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = iTunesSearchAppUITestsLaunchTests.swift; sourceTree = "<group>"; };
+		1ED4BC4D289EA37000689911 /* Album.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Album.swift; sourceTree = "<group>"; };
+		1ED4BC4F289EA3FD00689911 /* AlbumListViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlbumListViewModel.swift; sourceTree = "<group>"; };
+		1ED4BC51289EA50D00689911 /* Song.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Song.swift; sourceTree = "<group>"; };
+		1ED4BC53289EA51300689911 /* Movie.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Movie.swift; sourceTree = "<group>"; };
+		1ED4BC55289EA74C00689911 /* AlbumListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlbumListView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -96,6 +106,9 @@
 			children = (
 				1ED4BC20289EA12600689911 /* iTunesSearchAppApp.swift */,
 				1ED4BC22289EA12600689911 /* ContentView.swift */,
+				1ED4BC4A289EA34500689911 /* View */,
+				1ED4BC4B289EA35000689911 /* ViewModel */,
+				1ED4BC4C289EA36200689911 /* Model */,
 				1ED4BC24289EA12800689911 /* Assets.xcassets */,
 				1ED4BC26289EA12800689911 /* Preview Content */,
 			);
@@ -125,6 +138,32 @@
 				1ED4BC3D289EA12800689911 /* iTunesSearchAppUITestsLaunchTests.swift */,
 			);
 			path = iTunesSearchAppUITests;
+			sourceTree = "<group>";
+		};
+		1ED4BC4A289EA34500689911 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				1ED4BC55289EA74C00689911 /* AlbumListView.swift */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		1ED4BC4B289EA35000689911 /* ViewModel */ = {
+			isa = PBXGroup;
+			children = (
+				1ED4BC4F289EA3FD00689911 /* AlbumListViewModel.swift */,
+			);
+			path = ViewModel;
+			sourceTree = "<group>";
+		};
+		1ED4BC4C289EA36200689911 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				1ED4BC4D289EA37000689911 /* Album.swift */,
+				1ED4BC51289EA50D00689911 /* Song.swift */,
+				1ED4BC53289EA51300689911 /* Movie.swift */,
+			);
+			path = Model;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -257,8 +296,13 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				1ED4BC50289EA3FD00689911 /* AlbumListViewModel.swift in Sources */,
 				1ED4BC23289EA12600689911 /* ContentView.swift in Sources */,
+				1ED4BC54289EA51300689911 /* Movie.swift in Sources */,
 				1ED4BC21289EA12600689911 /* iTunesSearchAppApp.swift in Sources */,
+				1ED4BC4E289EA37000689911 /* Album.swift in Sources */,
+				1ED4BC52289EA50D00689911 /* Song.swift in Sources */,
+				1ED4BC56289EA74C00689911 /* AlbumListView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
