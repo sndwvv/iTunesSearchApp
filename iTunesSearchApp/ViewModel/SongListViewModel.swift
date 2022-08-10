@@ -20,6 +20,23 @@ class SongListViewModel: ObservableObject {
     
     var subscriptions = Set<AnyCancellable>()
     
+    init() {
+        $searchTerm
+            .removeDuplicates()
+            .dropFirst()
+            .debounce(for: .seconds(0.5), scheduler: RunLoop.main)
+            .sink { [weak self] term in
+                self?.clear()
+                self?.fetchSongs(for: term)
+        }.store(in: &subscriptions)
+    }
+    
+    func clear() {
+        state = .idle
+        page = 0
+        songs = []
+    }
+    
     func fetchSongs(for searchTerm: String) {
         guard !searchTerm.isEmpty else {
             return
@@ -39,9 +56,15 @@ class SongListViewModel: ObservableObject {
                     self?.page += 1
                     self?.state = (result.results.count == self?.limit) ? .idle : .loadedAll
                 case .failure(let error):
+                    print("Could not load: \(error.localizedDescription)")
                     self?.state = .error("Could not load: \(error.localizedDescription)")
                 }
             }
         }
     }
+    
+    func loadMore() {
+        fetchSongs(for: searchTerm)
+    }
+    
 }

@@ -22,14 +22,19 @@ class AlbumListViewModel: ObservableObject {
     
     init() {
         $searchTerm
+            .removeDuplicates()
             .dropFirst()
             .debounce(for: .seconds(0.5), scheduler: RunLoop.main)
             .sink { [weak self] term in
-                self?.state = .idle
-                self?.page = 0
-                self?.albums = []
+                self?.clear()
                 self?.fetchAlbums(for: term)
         }.store(in: &subscriptions)
+    }
+    
+    func clear() {
+        state = .idle
+        page = 0
+        albums = []
     }
     
     func loadMore() {

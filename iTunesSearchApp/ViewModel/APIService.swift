@@ -9,12 +9,6 @@ import Foundation
 
 class APIService {
     
-    enum EntityType: String {
-        case album
-        case song
-        case movie
-    }
-    
     func fetchAlbums(searchTerm: String, page: Int, limit: Int, completion: @escaping(Result<AlbumResult, APIError>) -> Void) {
         let url = createURL(for: searchTerm, type: .album, page: page, limit: limit)
         fetch(type: AlbumResult.self, url: url, completion: completion)

@@ -1,26 +1,26 @@
 //
-//  MovieListView.swift
+//  SongListView.swift
 //  iTunesSearchApp
 //
-//  Created by Songyee Park on 2022/08/07.
+//  Created by Songyee Park on 2022/08/10.
 //
 
 import SwiftUI
 
-struct MovieListView: View {
+struct SongListView: View {
     
-    @ObservedObject var viewModel: MovieListViewModel
+    @ObservedObject var viewModel: SongListViewModel
     
     var body: some View {
         List {
-            ForEach(viewModel.movies) { movie in
-                Text(movie.trackName)
+            ForEach(viewModel.songs) { song in
+                Text(song.trackName)
             }
             switch viewModel.state {
             case .idle:
                 Color.clear
                     .onAppear {
-                        viewModel.loadMore() 
+                        viewModel.loadMore()
                     }
             case .isLoading:
                 ProgressView()
@@ -34,12 +34,13 @@ struct MovieListView: View {
             }
 
         }
-        .listStyle(.plain) 
+        .listStyle(.plain)
+        .searchable(text: $viewModel.searchTerm)
     }
 }
 
-struct MovieListView_Previews: PreviewProvider {
+struct SongListView_Previews: PreviewProvider {
     static var previews: some View {
-        MovieListView(viewModel: MovieListViewModel())
+        SongListView(viewModel: SongListViewModel())
     }
 }

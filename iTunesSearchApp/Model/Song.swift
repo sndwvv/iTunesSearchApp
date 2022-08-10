@@ -7,11 +7,6 @@
 
 import Foundation
 
-// This file was generated from JSON Schema using quicktype, do not modify it directly.
-// To parse the JSON, add this file to your project and do:
-//
-//   let songResult = try? newJSONDecoder().decode(SongResult.self, from: jsonData)
-
 // MARK: - SongResult
 struct SongResult: Codable {
     let resultCount: Int
@@ -19,7 +14,7 @@ struct SongResult: Codable {
 }
 
 // MARK: - Result
-struct Song: Codable {
+struct Song: Codable, Identifiable {
     let wrapperType, kind: String
     let artistID, collectionID, trackID: Int
     let artistName, collectionName, trackName, collectionCensoredName: String
@@ -27,13 +22,17 @@ struct Song: Codable {
     let artistViewURL, collectionViewURL, trackViewURL: String
     let previewURL: String
     let artworkUrl30, artworkUrl60, artworkUrl100: String
-    let collectionPrice, trackPrice: Double
-    let releaseDate: Date
+    let collectionPrice, trackPrice: Double?
+    let releaseDate: String
     let collectionExplicitness, trackExplicitness: String
     let discCount, discNumber, trackCount, trackNumber: Int
     let trackTimeMillis: Int
     let country, currency, primaryGenreName: String
     let isStreamable: Bool
+    
+    var id: Int {
+        return trackID
+    }
 
     enum CodingKeys: String, CodingKey {
         case wrapperType, kind

@@ -21,13 +21,18 @@ class MovieListViewModel: ObservableObject {
     
     init() {
         $searchTerm
+            .removeDuplicates()
             .dropFirst()
             .debounce(for: .seconds(0.5), scheduler: RunLoop.main)
             .sink { [weak self] term in
-                self?.state = .idle
-                self?.movies = []
+                self?.clear()
                 self?.fetchMovies(for: term)
         }.store(in: &subscriptions)
+    }
+    
+    func clear() {
+        state = .idle
+        movies = []
     }
     
     func fetchMovies(for searchTerm: String) {
