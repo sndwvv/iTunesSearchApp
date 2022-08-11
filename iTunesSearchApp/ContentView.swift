@@ -19,7 +19,7 @@ struct ContentView: View {
                 .tabItem {
                     Label("Album", systemImage: "music.note")
                 }
-            
+
             MovieSearchView()
                 .tabItem {
                     Label("Movies", systemImage: "tv")
