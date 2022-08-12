@@ -37,6 +37,10 @@ class SongListViewModel: ObservableObject {
         songs = []
     }
     
+    func loadMore() {
+        fetchSongs(for: searchTerm)
+    }
+    
     func fetchSongs(for searchTerm: String) {
         guard !searchTerm.isEmpty else {
             return
@@ -63,8 +67,9 @@ class SongListViewModel: ObservableObject {
         }
     }
     
-    func loadMore() {
-        fetchSongs(for: searchTerm)
+    static func example() -> SongListViewModel {
+        let viewModel = SongListViewModel()
+        viewModel.songs = [Song.example()]
+        return viewModel
     }
-    
 }

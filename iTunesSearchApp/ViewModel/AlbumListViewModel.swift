@@ -65,6 +65,12 @@ class AlbumListViewModel: ObservableObject {
             }
         }
     }
+    
+    static func example() -> AlbumListViewModel {
+        let viewModel = AlbumListViewModel()
+        viewModel.albums = [Album.example()]
+        return viewModel
+    }
 
 }
 

@@ -14,17 +14,76 @@ struct SearchAllListView: View {
     @ObservedObject var movieListViewModel: MovieListViewModel
     
     var body: some View {
-        VStack {
-            Text("Search All")
-            Text("Movies: \(movieListViewModel.movies.count)")
-            Text("Albums: \(albumListViewModel.albums.count)")
-            Text("Songs: \(songListViewModel.songs.count)")
+        ScrollView {
+            LazyVStack(spacing: 5) {
+                
+                if songListViewModel.songs.count > 0 {
+                    SectionHeaderView(title: "Songs") {
+                        SongListView(viewModel: songListViewModel)
+                    }
+                    .padding(.top)
+                    
+                    SongSectionView(songs: songListViewModel.songs)
+                    
+                    Divider()
+                        .padding(.bottom)
+                    
+                }
+                
+                if albumListViewModel.albums.count > 0 {
+                    SectionHeaderView(title: "Albums") {
+                        AlbumListView(viewModel: albumListViewModel)
+                    }
+                    
+                    AlbumSectionView(albums: albumListViewModel.albums)
+                    
+                    Divider()
+                        .padding(.bottom)
+                }
+    
+                if movieListViewModel.movies.count > 0 {
+                    SectionHeaderView(title: "Movies") {
+                        MovieListView(viewModel: movieListViewModel)
+                    }
+                    
+                    MovieSectionView(movies: movieListViewModel.movies)
+                }
+            }
         }
     }
 }
 
-//struct SearchAllListView_Previews: PreviewProvider {
-//    static var previews: some View {
-//        SearchAllListView()
-//    }
-//}
+struct SectionHeaderView<Destination>: View where Destination : View {
+    let title: String
+    let destination: () -> Destination
+    
+    init(title: String, @ViewBuilder destination: @escaping () -> Destination) {
+        self.title = title
+        self.destination = destination
+    }
+    
+    var body: some View {
+        HStack {
+            Text(title)
+                .font(.title2)
+            Spacer()
+            NavigationLink(destination: destination) {
+                HStack {
+                    Text("See All")
+                    Image(systemName: "chevron.right")
+                }
+            }
+        }
+        .padding(.horizontal)
+    }
+}
+
+
+
+struct SearchAllListView_Previews: PreviewProvider {
+    static var previews: some View {
+        SearchAllListView(albumListViewModel: AlbumListViewModel.example(),
+                          songListViewModel: SongListViewModel.example(),
+                          movieListViewModel: MovieListViewModel.example())
+    }
+}
