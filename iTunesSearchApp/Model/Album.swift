@@ -29,12 +29,12 @@ struct Album: Codable, Identifiable {
     let artworkUrl100: String
     let collectionPrice: Double?
     let collectionExplicitness: String?
-    let trackCount: Int?
+    let trackCount: Int
     let copyright: String?
     let country: String?
     let currency: String
     let releaseDate: String?
-    let primaryGenreName: String?
+    let primaryGenreName: String
 
     enum CodingKeys: String, CodingKey {
         case wrapperType, collectionType

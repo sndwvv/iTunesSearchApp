@@ -14,7 +14,11 @@ struct AlbumListView: View {
     var body: some View {
         List {
             ForEach(viewModel.albums) { album in
-                AlbumRowView(album: album)
+                NavigationLink {
+                    AlbumDetailView(album: album)
+                } label: {
+                    AlbumRowView(album: album)
+                }
             }
             switch viewModel.state {
             case .idle:
@@ -44,6 +48,8 @@ struct AlbumListView: View {
 
 struct AlbumListView_Previews: PreviewProvider {
     static var previews: some View {
-        AlbumListView(viewModel: AlbumListViewModel())
+        NavigationView {
+            AlbumListView(viewModel: AlbumListViewModel.example())
+        }
     }
 }
